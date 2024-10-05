@@ -12,6 +12,7 @@ void output(Node *);
 void addAtHead(Node *&, float);
 void deleteNode(Node *&, int);
 void insertNode(Node *&, float, float);
+void deleteList(Node *&head);
 
 int main() {
     Node *head = nullptr;
@@ -51,14 +52,7 @@ int main() {
     insertNode(head, entry, 1000);
 
     // deleting the linked list
-    current = head;
-    while (current) {
-        head = current->next;
-        delete current;
-        current = head;
-    }
-    head = nullptr;
-    output(head);
+    deleteList(head);
 
     return 0;
 }
@@ -93,8 +87,16 @@ void addAtHead(Node *&head, float value){
 }
 
 void deleteNode(Node *&head, int choice) {
-    Node * current = head;
+    // Check if user wants to delete head pointer.
+    if (choice == 1) {
+        Node *temp = head;
+        head = head->next;
+        delete temp;
+        temp = nullptr;
+        return;
+    }
 
+    Node * current = head;
     // traverse that many times and delete that node
     current = head;
     Node *prev = head;
@@ -128,5 +130,16 @@ void insertNode(Node *&head, float entry, float num){
     newnode->value = num;
     newnode->next = current;
     prev->next = newnode;
+    output(head);
+}
+
+void deleteList(Node *&head) {
+    Node *current = head;
+    while (current) {
+        head = current->next;
+        delete current;
+        current = head;
+    }
+    head = nullptr;
     output(head);
 }
