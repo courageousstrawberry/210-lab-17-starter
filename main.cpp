@@ -10,6 +10,7 @@ struct Node {
 
 void output(Node *);
 void addAtHead(Node *&, float);
+void addAtTail(Node *&, float);
 void deleteNode(Node *&, int);
 void insertNode(Node *&, float, float);
 void deleteList(Node *&head);
@@ -24,6 +25,11 @@ int main() {
         
         addAtHead(head, tmp_val);
     }
+    output(head);
+
+    cout << "Adding 5000 to the end of the linked list." << endl;
+    addAtTail(head, 5000);
+
     output(head);
 
     // deleting a node
@@ -54,6 +60,8 @@ int main() {
     // deleting the linked list
     deleteList(head);
 
+    // Check that list is deleted.
+    output(head);
     return 0;
 }
 
@@ -71,18 +79,35 @@ void output(Node * hd) {
     cout << endl;
 }
 
-void addAtHead(Node *&head, float value){
+void addAtHead(Node *&head, float number){
     Node *newVal = new Node;
     // adds node at head
     if (!head) { // if this is the first node, it's the new head
     head = newVal;
         newVal->next = nullptr;
-        newVal->value = value;
+        newVal->value = number;
     }
     else { // its a second or subsequent node; place at the head
         newVal->next = head;
-        newVal->value = value;
+        newVal->value = number;
         head = newVal;
+    }
+}
+
+void addAtTail(Node *&head, float number) {
+    Node *newVal = new Node;
+    Node *current = head;
+
+    newVal->value = number;
+    newVal->next = nullptr;
+    if (!head) {
+        head = newVal;
+    }
+    else {
+        while(current->next){
+            current = current->next;
+        }
+        current->next = newVal;
     }
 }
 
@@ -98,7 +123,6 @@ void deleteNode(Node *&head, int choice) {
 
     Node * current = head;
     // traverse that many times and delete that node
-    current = head;
     Node *prev = head;
     for (int i = 0; i < (choice-1); i++)
         if (i == 0)
@@ -141,5 +165,4 @@ void deleteList(Node *&head) {
         current = head;
     }
     head = nullptr;
-    output(head);
 }
