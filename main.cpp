@@ -10,6 +10,7 @@ struct Node {
 
 void output(Node *);
 void addAtHead(Node *&, float);
+void deleteNode(Node *&, int);
 
 int main() {
     Node *head = nullptr;
@@ -24,29 +25,13 @@ int main() {
     output(head);
 
     // deleting a node
-    Node * current = head;
     cout << "Which node to delete? " << endl;
     output(head);
     int entry;
     cout << "Choice --> ";
     cin >> entry;
 
-    // traverse that many times and delete that node
-    current = head;
-    Node *prev = head;
-    for (int i = 0; i < (entry-1); i++)
-        if (i == 0)
-            current = current->next;
-        else {
-            current = current->next;
-            prev = prev->next;
-        }
-    // at this point, delete current and reroute pointers
-    if (current) {  // checks for current to be valid before deleting the node
-        prev->next = current->next;
-        delete current;
-        current = nullptr;
-    }
+    deleteNode(head, entry);
     output(head);
 
     // insert a node
@@ -115,5 +100,26 @@ void addAtHead(Node *&head, float value){
         newVal->next = head;
         newVal->value = value;
         head = newVal;
+    }
+}
+
+void deleteNode(Node *&head, int choice) {
+    Node * current = head;
+
+    // traverse that many times and delete that node
+    current = head;
+    Node *prev = head;
+    for (int i = 0; i < (choice-1); i++)
+        if (i == 0)
+            current = current->next;
+        else {
+            current = current->next;
+            prev = prev->next;
+        }
+    // at this point, delete current and reroute pointers
+    if (current) {  // checks for current to be valid before deleting the node
+        prev->next = current->next;
+        delete current;
+        current = nullptr;
     }
 }
