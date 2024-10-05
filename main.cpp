@@ -11,6 +11,7 @@ struct Node {
 void output(Node *);
 void addAtHead(Node *&, float);
 void deleteNode(Node *&, int);
+void insertNode(Node *&, float, float);
 
 int main() {
     Node *head = nullptr;
@@ -34,6 +35,8 @@ int main() {
     deleteNode(head, entry);
     output(head);
 
+    Node * current = head;
+    Node *prev = head;
     // insert a node
     current = head;
     cout << "After which node to insert 10000? " << endl;
@@ -45,21 +48,7 @@ int main() {
     cout << "Choice --> ";
     cin >> entry;
 
-    current = head;
-    prev = head;
-    for (int i = 0; i < (entry); i++)
-        if (i == 0)
-            current = current->next;
-        else {
-            current = current->next;
-            prev = prev->next;
-        }
-    //at this point, insert a node between prev and current
-    Node * newnode = new Node;
-    newnode->value = 10000;
-    newnode->next = current;
-    prev->next = newnode;
-    output(head);
+    insertNode(head, entry, 1000);
 
     // deleting the linked list
     current = head;
@@ -122,4 +111,22 @@ void deleteNode(Node *&head, int choice) {
         delete current;
         current = nullptr;
     }
+}
+
+void insertNode(Node *&head, float entry, float num){
+    Node *current = head;
+    Node *prev = head;
+    for (int i = 0; i < (entry); i++)
+        if (i == 0)
+            current = current->next;
+        else {
+            current = current->next;
+            prev = prev->next;
+        }
+    //at this point, insert a node between prev and current
+    Node * newnode = new Node;
+    newnode->value = num;
+    newnode->next = current;
+    prev->next = newnode;
+    output(head);
 }
