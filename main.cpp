@@ -83,7 +83,7 @@ void addAtHead(Node *&head, float number){
     Node *newVal = new Node;
     // adds node at head
     if (!head) { // if this is the first node, it's the new head
-    head = newVal;
+        head = newVal;
         newVal->next = nullptr;
         newVal->value = number;
     }
